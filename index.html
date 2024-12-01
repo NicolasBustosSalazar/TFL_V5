@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulación PSK</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div>
+        <img src="utn_logo.png" alt="UTN LOGO" style="height: 60px" />
+        <h1>UTN-TUC</h1>
+      </div>
+      <h1>Modulación PSK (Phase Shift Keying)</h1>
+      <div class="link-conteiner">
+        <a href="https://www.frt.utn.edu.ar"
+          ><h4 class="links">Sitio Web UTN</h4></a
+        >
+
+        <a
+          href="https://eng.libretexts.org/Bookshelves/Electrical_Engineering/Electronics/Microwave_and_RF_Design_I_-_Radio_Systems_(Steer)/02%3A_Modulation/2.13%3A_Phase_Shift_Keying_Modulation"
+          ><h4 class="links">+Información</h4></a
+        >
+        <a id="mail" href="mailto:nicobustos@gmail.com"
+          ><h4 class="links">Contacto</h4></a
+        >
+      </div>
+    </header>
+    <main>
+      <hr />
+      <div class="upper">
+        <div class="input_text info-card">
+          <div class="elements">
+            <div>
+              <p>
+                <i class="fa-solid fa-atom" style="color: #74c0fc"></i> Ingresar
+                los caracteres:
+              </p>
+              <i class="fa-solid fa-terminal" style="color: #ffd43b"></i>
+              <input type="text" id="inputTexto" placeholder="Ej: abc" />
+            </div>
+            <div class="dropdown">
+              <button class="dropdown-btn">
+                <i
+                  class="fa-solid fa-circle-chevron-down"
+                  style="color: #74c0fc"
+                ></i
+                >Modulación
+              </button>
+              <div class="dropdown-content">
+                <button id="btnBinary">
+                  <i class="fa-solid fa-chart-line"></i>Señal Moduladora
+                </button>
+                <button id="btnPSK">
+                  <i class="fa-solid fa-chart-line"></i>PSK
+                </button>
+                <button id="btn4PSK">
+                  <i class="fa-solid fa-chart-line"></i>4PSK
+                </button>
+                <button id="btn8PSK">
+                  <i class="fa-solid fa-chart-line"></i>8PSK
+                </button>
+              </div>
+            </div>
+          </div>
+          <p id="message">Codigo ASCII:</p>
+        </div>
+        <div class="info-card data">
+          <h3>
+            <i class="fa-solid fa-rectangle-list" style="color: #74c0fc"></i>
+            Características
+          </h3>
+          <h5>Fundamento</h5>
+
+          <div>
+            <p class="" id="characteristics">
+              <i class="fa-solid fa-paragraph" style="color: #ffd43b"></i>
+            </p>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <h3 class="chart-header" id="chart_title">Modulación Digital: PSK</h3>
+      <div class="chart-wrapper hidden" id="ChartWrapper">
+        <div class="chart-info">
+          <div class="chart-container info-card">
+            <canvas id="PSKChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-info" id="table-container">
+          <div class="chart-container info-card" id="table_contairner">
+            <table class="" id="table"></table>
+          </div>
+        </div>
+        <div class="chart-info" id="container">
+          <div id="ChartWrapper">
+            <canvas id="ConstellationChart" style="height: 300px; padding-top: 5px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <h3>Trabajo final integrador</h3>
+      <h4>Bustos Nicolás-Comisión 3K1-2024-Tucuman</h4>
+      <h4>Contacto: nicobustos84@gmail.com</h4>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
