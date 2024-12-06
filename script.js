@@ -35,7 +35,7 @@ document.getElementById("inputTexto").addEventListener("input", function () {
     enableButtons([btnBinary, btnPSK, btn4PSK, btn8PSK]);
   } else {
     enableButtons([btnBinary]);
-    disableButtons([btnPSK, btn4PSK, btn8PSK]);
+    disableButtons([btnPSK, btn4PSK, btn8PSK, btnBinary]);
     chartWrapper.classList.add("hidden");
     message.textContent =
       "Por favor, ingrese hasta 3 caracteres para ver la modulación PSK.";
