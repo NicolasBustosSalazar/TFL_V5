@@ -24,9 +24,9 @@ document.getElementById("inputTexto").addEventListener("input", function () {
   // Lógica para habilitar o deshabilitar botones según la longitud del texto
   if (inputText.length === 0) {
     disableButtons([btnBinary, btnPSK, btn4PSK, btn8PSK]);
-      chartWrapper.classList.add("hidden");
-      const p = document.getElementById("characteristics");
-      p.textContent = "";
+    chartWrapper.classList.add("hidden");
+    const p = document.getElementById("characteristics");
+    p.textContent = "";
   } else if (inputText.length === 1 || inputText.length === 2) {
     enableButtons([btnBinary, btnPSK, btn4PSK]);
     disableButtons([btn8PSK]);
@@ -101,17 +101,25 @@ document.getElementById("btnBinary").addEventListener("click", function () {
     return;
   }
 
-  // Convertir texto a ASCII y luego a binario
-  const binaryValues = Array.from(inputTexto)
-    .map((char) => char.charCodeAt(0).toString(2).padStart(8, "0"))
-    .join("");
+  // Convertir texto a ASCII y luego a binario (manteniendo como array)
+  let binaryValues = Array.from(inputTexto).map((char) =>
+    char.charCodeAt(0).toString(2).padStart(8, "0")
+  );
 
-  messageElement.textContent = `Código ASCII: ${binaryValues}`;
+  // Agregar un "0" al array
+  binaryValues.push("0");
+
+  // Si necesitas mostrarlo como un string
+  let binaryString = binaryValues.join(""); // Convierte el array en string
+
+  // Crear datos para graficar
+  let binaryArray = binaryString.split("").map(Number); // Convertir a array de números
+
+  messageElement.textContent = `Código ASCII: ${binaryString}`;
   messageElement.style.color = "white";
   messageElement.style.backgroundColor = "#3b3c49";
 
-  // Crear datos para graficar
-  const binaryArray = binaryValues.split("").map(Number); // Convertir a array de números
+  console.log(binaryArray); // Verifica el array para graficar
 
   // Configuración del gráfico
   const data = {
@@ -144,6 +152,7 @@ document.getElementById("btnBinary").addEventListener("click", function () {
               return data.labels[index];
             },
             color: "white",
+            display: false,
           },
         },
         y: {
@@ -166,7 +175,23 @@ document.getElementById("btnBinary").addEventListener("click", function () {
     pskChart.destroy();
   }
 
+  // Remover el último carácter del string
+  binaryString = binaryString.slice(0, -1);
+
+  let labelsElement = document.getElementById("labels");
+  labelsElement.classList.remove("char1", "char2", "char3");
+  // Verificar la cantidad de caracteres y asignar la clase correspondiente
+  if (inputTexto.length === 1) {
+    labelsElement.classList.add("char1");
+  } else if (inputTexto.length === 2) {
+    labelsElement.classList.add("char2");
+  } else if (inputTexto.length === 3) {
+    labelsElement.classList.add("char3");
+  }
+  labelsElement.textContent = binaryString;
+  messageElement.textContent = `Código ASCII: ${binaryString}`;
   // Mostrar el gráfico
+
   binaryChartWrapper.classList.remove("hidden");
   binaryChart = new Chart(canvas, config);
 });
@@ -214,17 +239,26 @@ document.getElementById("btnPSK").addEventListener("click", function () {
     return;
   }
 
-  // Convertir texto a ASCII y luego a binario
-  const binaryValues = Array.from(inputTexto)
-    .map((char) => char.charCodeAt(0).toString(2).padStart(8, "0"))
-    .join("");
+  // Convertir texto a ASCII y luego a binario (manteniendo como array)
+  let binaryValues = Array.from(inputTexto).map((char) =>
+    char.charCodeAt(0).toString(2).padStart(8, "0")
+  );
 
-  messageElement.textContent = `Código ASCII: ${binaryValues}`;
+  // Agregar un "0" al array
+  // binaryValues.push("0");
+
+  // Si necesitas mostrarlo como un string
+  const binaryString = binaryValues.join(""); // Convierte el array en string
+
+  // Crear datos para graficar
+  const binaryArray = binaryString.split("").map(Number); // Convertir a array de números
+
+  messageElement.textContent = `Código ASCII: ${binaryString}`;
   messageElement.style.color = "white";
   messageElement.style.backgroundColor = "#3b3c49";
 
-  // Generar señal PSK
-  const binaryArray = binaryValues.split("").map(Number); // Convertir a array de números
+  console.log(binaryArray); // Verifica el array para graficar
+
   const samplesPerBit = 100;
   const carrierFrequency = 2 * Math.PI;
   const timeStep = 1 / samplesPerBit;
@@ -256,13 +290,29 @@ document.getElementById("btnPSK").addEventListener("click", function () {
     }
   }
 
+  let labelsElement = document.getElementById("labels");
+  labelsElement.classList.remove("char1", "char2", "char3");
+  // Verificar la cantidad de caracteres y asignar la clase correspondiente
+  if (inputTexto.length === 1) {
+    labelsElement.classList.add("char1");
+  } else if (inputTexto.length === 2) {
+    labelsElement.classList.add("char2");
+  } else if (inputTexto.length === 3) {
+    labelsElement.classList.add("char3");
+  }
+
+  labelsElement.classList.remove("estiloChart2", "estiloChart3");
+  labelsElement.classList.add("estiloChart1");
+  labelsElement.textContent = binaryString;
+  messageElement.textContent = `Código ASCII: ${binaryString}`;
+
   const data = {
     labels: xLabels,
     datasets: [
       {
         label: "Señal PSK",
         data: pskWave,
-        borderColor: "rgba(192, 75, 75, 1)",
+        borderColor: "rgba(255, 164, 89, 1)",
         borderWidth: 2,
         pointRadius: 0,
         fill: false,
@@ -288,6 +338,7 @@ document.getElementById("btnPSK").addEventListener("click", function () {
             color: "white",
             autoSkip: false,
             maxRotation: 0,
+            display: false,
           },
           grid: {
             display: false,
@@ -426,7 +477,7 @@ document.getElementById("btn4PSK").addEventListener("click", function () {
       {
         label: "Señal 4PSK",
         data: pskWave,
-        borderColor: "rgba(75, 192, 192, 1)",
+        borderColor: "rgba(0, 252, 29, 1)",
         borderWidth: 2,
         pointRadius: 0,
         fill: false,
@@ -452,6 +503,7 @@ document.getElementById("btn4PSK").addEventListener("click", function () {
             color: "white",
             autoSkip: false,
             maxRotation: 0,
+            display: false,
           },
           grid: {
             display: false,
@@ -477,6 +529,26 @@ document.getElementById("btn4PSK").addEventListener("click", function () {
     pskChart.destroy();
   }
 
+  let labelsElement = document.getElementById("labels");
+  labelsElement.classList.remove("char1", "char2", "char3");
+  // Verificar la cantidad de caracteres y asignar la clase correspondiente
+  if (inputTexto.length === 1) {
+    labelsElement.classList.add("char1");
+  } else if (inputTexto.length === 2) {
+    labelsElement.classList.add("char2");
+  } else if (inputTexto.length === 3) {
+    labelsElement.classList.add("char3");
+  }
+  labelsElement.classList.remove("estiloChart1", "estiloChart3");
+  labelsElement.classList.add("estiloChart2");
+  labelsElement.textContent = binaryValues;
+  messageElement.textContent = `Código ASCII: ${binaryValues}`;
+  let formattedContent = binaryValues
+    .split("") // Divide los bits en un array
+    .map((bit, index) => `<span class="bit">${bit}</span>`) // Envuelve cada bit en un span
+    .join(""); // Une todo en un solo string
+
+  labelsElement.innerHTML = formattedContent;
   // Crear el nuevo gráfico
   pskChart = new Chart(canvas, config);
 });
@@ -587,7 +659,7 @@ document.getElementById("btn8PSK").addEventListener("click", function () {
       {
         label: "Señal 8PSK",
         data: pskWave,
-        borderColor: "rgba(192, 75, 192, 1)",
+        borderColor: "rgba(244, 252, 0, 1)",
         borderWidth: 2,
         pointRadius: 0,
         fill: false,
@@ -613,6 +685,7 @@ document.getElementById("btn8PSK").addEventListener("click", function () {
             color: "white",
             autoSkip: false,
             maxRotation: 0,
+            display: false,
           },
           grid: {
             display: false,
@@ -638,6 +711,26 @@ document.getElementById("btn8PSK").addEventListener("click", function () {
     pskChart.destroy();
   }
 
+  let labelsElement = document.getElementById("labels");
+  labelsElement.classList.remove("char1", "char2", "char3");
+  // Verificar la cantidad de caracteres y asignar la clase correspondiente
+  if (inputTexto.length === 1) {
+    labelsElement.classList.add("char1");
+  } else if (inputTexto.length === 2) {
+    labelsElement.classList.add("char2");
+  } else if (inputTexto.length === 3) {
+    labelsElement.classList.add("char3");
+  }
+  labelsElement.classList.remove("estiloChart", "estiloChart2");
+  labelsElement.classList.add("estiloChart3");
+  labelsElement.textContent = binaryValues;
+  messageElement.textContent = `Código ASCII: ${binaryValues}`;
+  let formattedContent = binaryValues
+    .split("") // Divide los bits en un array
+    .map((bit, index) => `<span class="bit">${bit}</span>`) // Envuelve cada bit en un span
+    .join(""); // Une todo en un solo string
+
+  labelsElement.innerHTML = formattedContent;
   // Crear el nuevo gráfico
   pskChart = new Chart(canvas, config);
 });
@@ -661,9 +754,9 @@ function inicializarConstelacion(idCanvas, title) {
       datasets: [
         {
           label: title,
-          data: [],
+          data: [], // Asegúrate de llenar este array con los datos de la constelación
           backgroundColor: "rgba(255, 99, 132, 1)", // Color de los puntos
-          pointRadius: 6, // Tamaño de los puntos
+          pointRadius: 5, // Tamaño reducido de los puntos
         },
       ],
     },
@@ -681,10 +774,22 @@ function inicializarConstelacion(idCanvas, title) {
         datalabels: {
           color: "#ffffff", // Color de las etiquetas
           font: {
-            size: 14, // Tamaño de fuente
+            size: 12, // Tamaño más pequeño de fuente
           },
-          align: "top", // Posición de la etiqueta
+          align: "center", // Etiqueta alineada al centro del punto
+          anchor: "center", // Ancla las etiquetas al centro del punto
           formatter: (value) => value.label, // Mostrar el valor binario en la etiqueta
+          backgroundColor: "rgba(252, 0, 0, 0.9)", // Fondo semitransparente para mejorar visibilidad
+          borderRadius: 10, // Bordes redondeados del fondo
+          padding: 4, // Espaciado interno de las etiquetas
+        },
+      },
+      layout: {
+        padding: {
+          top: 30, // Incrementa el margen superior
+          bottom: 20,
+          left: 20,
+          right: 20,
         },
       },
       scales: {
@@ -723,6 +828,7 @@ function inicializarConstelacion(idCanvas, title) {
 
   return currentChart;
 }
+
 //
 // Diagrama de constelación para PSK
 function graficarPSK(idCanvas) {

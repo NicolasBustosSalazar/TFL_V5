@@ -113,8 +113,8 @@ input {
   align-items: start;
 }
 
-.upper .info-card{
-    height:23vh;
+.upper .info-card {
+  height: 23vh;
 }
 
 .input_text {
@@ -270,7 +270,6 @@ table {
   /* Bordes redondeados */
   overflow: hidden;
   /* Asegura que las esquinas redondeadas funcionen */
-  
 }
 
 /* Estilo de las celdas de la tabla */
@@ -350,6 +349,8 @@ footer {
   margin-top: 80px;
   background-color: var(--color-card);
   border-radius: 10px;
+  z-index: 20 !important;
+  background-color: rgb(49, 47, 47);
 }
 
 #container {
@@ -359,3 +360,74 @@ footer {
   width: 300px;
   height: 300px;
 }
+
+.chart-container {
+  display: flex;
+  flex-direction: column;
+}
+
+span{
+  color: white;
+}
+
+.chart-container .char1 {
+  padding-left: 130px;
+  letter-spacing: 60px;
+  width: 100%;
+  text-align: start;
+  
+}
+.chart-container .char2 {
+  width: 100%;
+  text-align: start;
+  padding-left: 80px;
+  letter-spacing: 24px;
+}
+
+.chart-container .char3{
+width: 100%;
+  text-align: start;
+  padding-left: 60px;
+  letter-spacing: 12px;
+}
+
+
+/* ///////////////// */
+
+
+/* Para estiloChart1, alterna cada bit entre blanco y rojo */
+.estiloChart1 .bit:nth-child(4n-3),
+.estiloChart1 .bit:nth-child(4n-1) {
+  color: white; /* Bits en posiciones 1, 3, 5, 7, ... */
+}
+
+.estiloChart1 .bit:nth-child(4n-2),
+.estiloChart1 .bit:nth-child(4n) {
+  color: red; /* Bits en posiciones 2, 4, 6, 8, ... */
+}
+
+/* Para estiloChart2, alterna cada par de bits entre blanco y rojo */
+.estiloChart2 .bit:nth-child(4n-3),
+.estiloChart2 .bit:nth-child(4n-2) {
+  color: white; /* Primer par de bits de cada grupo de 4 */
+}
+
+.estiloChart2 .bit:nth-child(4n-1),
+.estiloChart2 .bit:nth-child(4n) {
+  color: red; /* Segundo par de bits de cada grupo de 4 */
+}
+
+/* Para estiloChart3, alterna cada bloque de 3 bits entre blanco y rojo */
+.estiloChart3 .bit:nth-child(6n-5),
+.estiloChart3 .bit:nth-child(6n-4),
+.estiloChart3 .bit:nth-child(6n-3) {
+  color: white; /* Primer bloque de 3 bits de cada grupo de 6 */
+}
+
+.estiloChart3 .bit:nth-child(6n-2),
+.estiloChart3 .bit:nth-child(6n-1),
+.estiloChart3 .bit:nth-child(6n) {
+  color: red; /* Segundo bloque de 3 bits de cada grupo de 6 */
+}
+
+
